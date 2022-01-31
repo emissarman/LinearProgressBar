@@ -68,25 +68,18 @@ open class LinearProgressBar: UIView {
         
         if !isAnimationRunning {
             self.isAnimationRunning = true
-            
-            UIView.animate(withDuration: 0.5, delay:0, options: [], animations: {
-                self.frame = CGRect(x: 0, y: self.frame.origin.y, width: self.widthForLinearBar, height: self.heightForLinearBar)
-                }, completion: { animationFinished in
-                    self.addSubview(self.progressBarIndicator)
-                    self.configureAnimation()
-            })
+            UIView.animate(withDuration: 0.2) {
+                self.layer.opacity = 1
+            }
+   
+            self.addSubview(self.progressBarIndicator)
+            self.configureAnimation()
         }
     }
     
     //Start the animation
     open func stopAnimation() {
-        
         self.isAnimationRunning = false
-        
-        UIView.animate(withDuration: 0.5, animations: {
-            self.progressBarIndicator.frame = CGRect(x: 0, y: 0, width: self.widthForLinearBar, height: 0)
-            self.frame = CGRect(x: 0, y: self.frame.origin.y, width: self.widthForLinearBar, height: 0)
-        })
     }
     
     //MARK: PRIVATE FUNCTIONS    ------------------------------------------------------------------------------------------
@@ -124,7 +117,7 @@ open class LinearProgressBar: UIView {
         UIView.animateKeyframes(withDuration: 1.0, delay: 0, options: [], animations: {
             
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
-                self.progressBarIndicator.frame = CGRect(x: 0, y: 0, width: self.widthForLinearBar*0.7, height: self.heightForLinearBar)
+                self.progressBarIndicator.frame = CGRect(x: 0, y: 0, width: self.widthForLinearBar*0.25, height: self.heightForLinearBar)
             })
             
             UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
@@ -135,6 +128,11 @@ open class LinearProgressBar: UIView {
         }) { (completed) in
             if (self.isAnimationRunning){
                 self.configureAnimation()
+            }
+            else {
+                UIView.animate(withDuration: 0.2) {
+                    self.layer.opacity = 0
+                }
             }
         }
     }
