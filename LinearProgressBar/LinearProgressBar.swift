@@ -14,7 +14,7 @@ open class LinearProgressBar: UIView {
     
     //FOR DATA
     fileprivate var screenSize: CGRect = UIScreen.main.bounds
-    fileprivate var isAnimationRunning = false
+    open var isAnimationRunning = false
     
     //FOR DESIGN
     fileprivate var progressBarIndicator: UIView!
