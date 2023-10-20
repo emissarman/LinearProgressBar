@@ -14,7 +14,7 @@ open class LinearProgressBar: UIView {
     
     //FOR DATA
     fileprivate var screenSize: CGRect = UIScreen.main.bounds
-    fileprivate var isAnimationRunning = false
+    open var isAnimationRunning = false
     
     //FOR DESIGN
     fileprivate var progressBarIndicator: UIView!
@@ -28,11 +28,13 @@ open class LinearProgressBar: UIView {
     public init () {
         super.init(frame: CGRect(origin: CGPoint(x: 0,y :20), size: CGSize(width: screenSize.width, height: 0)))
         self.progressBarIndicator = UIView(frame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 0, height: heightForLinearBar)))
+        self.configureColors()
     }
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
         self.progressBarIndicator = UIView(frame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 0, height: heightForLinearBar)))
+        self.configureColors()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -61,12 +63,9 @@ open class LinearProgressBar: UIView {
     
     //Start the animation
     open func startAnimation(){
-        
-        self.configureColors()
-        
-        self.show()
-        
         if !isAnimationRunning {
+            self.show()
+            
             self.isAnimationRunning = true
             UIView.animate(withDuration: 0.2) {
                 self.layer.opacity = 1
